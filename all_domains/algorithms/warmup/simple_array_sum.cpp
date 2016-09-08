@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include <algorithm>
+#include <numeric>
 
 int main () {
 
@@ -10,10 +10,11 @@ int main () {
 
   std::cin >> nn;
 
-  std::vector<int> the_array(nn);
+  std::vector<int> the_array(nn);   // The array.
 
-  for (int ii = 0; ii < nn; ++ii) {
-    std::cin >> the_array[ii];
+  for (int &ee: the_array) {
+    std::cin >> ee;
   }
-  
+  std::cout << std::accumulate(the_array.cbegin(), the_array.cend(), 0) <<
+    std::endl;
 }
