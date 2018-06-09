@@ -1,5 +1,5 @@
+// Copyright 2018 Eduardo Sanchez
 #include <iostream>
-
 #include <vector>
 
 bool Compare (int aa, int bb) { return aa < bb;}
@@ -20,25 +20,22 @@ bool Compare (int aa, int bb) { return aa < bb;}
 // Insertion sort is particularly significant as the algorithm which minimizes
 // the amount of data movement. Since an almost-sorted permutation has few
 // inversions, insertion sort can be very effective on such data.
-void InsertionSort(std::vector<int> &aa) {
-
+void InsertionSort(std::vector<int> *aa) {
   // For every element starting from the second one...
-  for (int ii = 1; ii < aa.size(); ++ii) {
+  for (int ii = 1; ii < aa->size(); ++ii) {
     int cc = ii;
-    while (cc > 0 && Compare(aa[cc], aa[cc - 1])) {
-      std::swap(aa[cc], aa[cc - 1]);
+    while (cc > 0 && Compare((*aa)[cc], (*aa)[cc - 1])) {
+      std::swap((*aa)[cc], (*aa)[cc - 1]);
       cc--;
     }
-
-    for (const int &ee: aa) {
+    for (const int &ee : *aa) {
       std::cout << ee << ' ';
     }
     std::cout << std::endl;
   }
 }
 
-int main () {
-
+int main() {
   int nn = int();   // Size of the array.
 
   std::cin >> nn;
@@ -48,6 +45,5 @@ int main () {
   for (int ii = 0; ii < nn; ++ii) {
     std::cin >> the_array.at(ii);
   }
-
-  InsertionSort(the_array);
+  InsertionSort(&the_array);
 }
