@@ -1,28 +1,26 @@
+// Copyright 2018 Eduardo Sanchez
 #include <iostream>
 
-using namespace std;
-
 int main() {
-
   int numTestCases{};
   int nn{};
   int kk{};
 
-  cin >> numTestCases;
+  std::cin >> numTestCases;
 
   for (int ii = 0; ii < numTestCases; ++ii) {
     int aa{};
     int numPresent{};
 
-    cin >> nn >> kk;
+    std::cin >> nn >> kk;
     for (int jj = 0; jj < nn; ++jj) {
-      cin >> aa;
+      std::cin >> aa;
       numPresent += (aa <= 0)? 1: 0;
     }
     if (numPresent < kk) {
-      cout << "YES" << endl;
+      std::cout << "YES" << std::endl;
     } else {
-      cout << "NO" << endl;
+      std::cout << "NO" << std::endl;
     }
   }
 }
