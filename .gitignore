@@ -27,3 +27,9 @@
 *.exe
 *.out
 *.app
+
+# macOS
+.DS_Store
+
+# Test data
+*.dat
