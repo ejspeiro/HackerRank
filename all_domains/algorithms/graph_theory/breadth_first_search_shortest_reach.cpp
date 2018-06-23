@@ -1,9 +1,8 @@
+// Copyright 2018 Eduardo Sanchez
 #include <iostream>
 #include <iomanip>
-
 #include <utility>
 #include <limits>
-
 #include <vector>
 #include <queue>
 
@@ -51,14 +50,12 @@ DenseGraphOfInt::DenseGraphOfInt(int num_nodes, int num_edges, Direction dir):
   num_edges_(),
   degree_(num_nodes),
   dense_adj_matrix_(num_nodes) {
-
   for (int ii = 0; ii < num_nodes; ++ii) {
     dense_adj_matrix_.at(ii).resize(num_nodes, -1);
   }
 }
 
 void DenseGraphOfInt::InsertEdge(Edge ee, int weight) {
-
   int v1 = ee.first - 1;
   int v2 = ee.second - 1;
 
@@ -76,7 +73,6 @@ void DenseGraphOfInt::InsertEdge(Edge ee, int weight) {
 }
 
 int DenseGraphOfInt::GetEdgeWeight(int v1, int v2) const noexcept {
-
   if (v1 >= 0 && v2 >= 0 && v1 < NumNodes() && v2 < NumNodes()) {
     return dense_adj_matrix_[v1][v2];
   } else {
@@ -85,25 +81,23 @@ int DenseGraphOfInt::GetEdgeWeight(int v1, int v2) const noexcept {
 }
 
 int DenseGraphOfInt::NumNodes() const noexcept {
-
   return num_nodes_;
 }
 
 int DenseGraphOfInt::NumEdges() const noexcept {
-
   return num_edges_;
 }
 
 int DenseGraphOfInt::DegreeOfNode(int node) const noexcept {
-
   return degree_[node];
 }
 
-template <typename ProcessNode, typename ProcessEdge, typename ValidateEdge>
+template <typename ProcessNode,
+          typename ProcessEdge,
+          typename ValidateEdge>
 class BFSearcher {
  public:
-  void operator() (const DenseGraphOfInt &gg,
-                   int start_node) noexcept;
+  void operator() (const DenseGraphOfInt &gg, int start_node) noexcept;
 
   BFSearcher();
   explicit BFSearcher(int num_nodes);
@@ -126,14 +120,12 @@ template <typename ProcessNode, typename ProcessEdge, typename ValidateEdge>
 void BFSearcher<ProcessNode, ProcessEdge, ValidateEdge>::operator() (
   const DenseGraphOfInt &gg,
   int start_node) noexcept {
-
   start_node--;
 
   std::queue<int> node_queue;   // Queue of nodes to process.
 
   node_queue.push(start_node);
   discovered_[start_node] = true;
-
   while (!node_queue.empty()) {
     int node = node_queue.front();
     node_queue.pop();
@@ -152,7 +144,6 @@ void BFSearcher<ProcessNode, ProcessEdge, ValidateEdge>::operator() (
       }
     }
   }
-
   // Assign infinite distance to those nodes that were not reached in the BFS.
   for (int ii = 0; ii < parent_.size(); ++ii) {
     if (ii != start_node && parent_[ii] == -1) {
@@ -180,7 +171,6 @@ void BFSearcher<ProcessNode,
                                                       int end_node,
                                                       int &distance) const
                                                                      noexcept {
-
   if (start_node == end_node || end_node == -1) {
     distance = 0;
   } else if (end_node == kINFINITY) {
@@ -202,14 +192,12 @@ int BFSearcher<ProcessNode,
 
   start_node--;
   end_node--;
-
   if (start_node != end_node) {
     AuxGetShortestDistance(start_node, end_node, distance);
     if (distance == kINFINITY) {
       distance = -1;
     }
   }
-
   return distance;
 }
 
@@ -230,47 +218,40 @@ class EdgeProcessor {
 class EdgeValidator {
  public:
   bool operator() (Edge edge) const {
-
     // Exclude the possibility of loops.
     return !(edge.first == edge.second);
   }
 };
 
-int main () {
-
+int main() {
   const int omnipresent_weight{6};  // Every edge will have a weight of 6.
-
-  int qq{}; // Number of queries.
+  int qq{};  // Number of queries.
 
   std::cin >> qq;
 
   int num_nodes{};  // Number of nodes.
   int num_edges{};  // Number of edges.
-  int start_node{}; // Index of the starting node for the BFS.
+  int start_node{};  // Index of the starting node for the BFS.
 
   // For each query...
   for (int ii = 1; ii <= qq; ++ii) {
-
     std::cin >> num_nodes >> num_edges;
-
-    DenseGraphOfInt the_graph(num_nodes, num_edges); // Graph to process.
+    DenseGraphOfInt the_graph(num_nodes, num_edges);  // Graph to process.
 
     // Read all edges for this graph.
     for (int ee = 1; ee <= num_edges; ++ee) {
       int v1{};   // First component vertex of the edge to read.
       int v2{};   // Second component vertex of the edge to read.
+
       std::cin >> v1 >> v2;
       the_graph.InsertEdge(std::make_pair(v1, v2), omnipresent_weight);
     }
     std::cin >> start_node;
-
     // Initialize breadth-first search for current graph.
     BFSearcher<NodeProcessor,
                EdgeProcessor,
                EdgeValidator> bfsearcher(the_graph.NumNodes());
-
     bfsearcher(the_graph, start_node);
-
     for (int vv = 1; vv <= num_nodes; ++vv) {
       if (vv != start_node) {
         std::cout << bfsearcher.GetShortestDistance(start_node, vv) << ' ';

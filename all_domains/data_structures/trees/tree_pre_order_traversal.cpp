@@ -1,20 +1,9 @@
-/* you only have to complete the function given below.
-Node is defined as
-
-struct node
-{
-    int data;
-    node* left;
-    node* right;
-};
-
-*/
+// Copyright 2018 Eduardo Sanchez
 
 void preOrder(node *root) {
-
-    if (root != nullptr) {
-      std::cout << root->data << ' ';
-      preOrder(root->left);
-      preOrder(root->right);
-    }
+  if (root != nullptr) {
+    std::cout << root->data << ' ';
+    preOrder(root->left);
+    preOrder(root->right);
+  }
 }

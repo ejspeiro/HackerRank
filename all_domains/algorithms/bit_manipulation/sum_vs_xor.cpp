@@ -1,23 +1,22 @@
+// Copyright 2018 Eduardo Sanchez
 #include <cmath>
 
 #include <iostream>
 #include <iomanip>
-
 #include <vector>
 
 int main() {
-  
-  unsigned long nn{};
-  unsigned long count{};
-  
+  uint32_t nn{};
+  uint32_t count{};
+
   std::cin >> nn;
-  
-  unsigned long count = 0ul;
-  while(nn){
+
+  uint32_t count = 0ul;
+
+  while (nn) {
     count += nn%2ul? 0ul: 1ul;
-    nn/=2ul; 
+    nn/=2ul;
   }
-  count = pow(2ul,count);
-  
+  count = pow(2ul, count);
   std::cout << count << std::endl;
 }

@@ -1,13 +1,12 @@
+// Copyright 2018 Eduardo Sanchez
 #include <iostream>
-
 #include <vector>
 
-long long int constexpr nn = 70;
+int64_t constexpr nn = 70;
 
-std::vector<long long int> buffer(nn + 1);
+std::vector<int64_t> buffer(nn + 1);
 
-long long int FF(long long int nn) {
-
+int64_t FF(int64_t nn) {
   if (nn < 3ll) {
     return 7ll;
   } else {
@@ -21,15 +20,12 @@ long long int FF(long long int nn) {
   }
 }
 
-int main () {
-
-  long long int nn{};
+int main() {
+  int64_t nn{};
 
   std::cin >> nn;
-
-  for (long long int &ee: buffer) {
+  for (int64_t &ee : buffer) {
     ee = -1;
   }
-
   std::cout << FF(nn) << std::endl;
 }

@@ -1,0 +1,2 @@
+*.sql linguist-detectable=true
+tools/export_bom.py linguist-detectable=false

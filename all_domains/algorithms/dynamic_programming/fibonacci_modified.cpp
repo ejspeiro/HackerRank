@@ -1,7 +1,7 @@
+// Copyright 2018 Eduardo Sanchez
 #include <iostream>
 
-long long int Fibonacci(int nn, int t1, int t2) {
-
+int64_t Fibonacci(int nn, int t1, int t2) {
   if (nn <= 0) {
     return t1;
   } else if (nn == 1) {
@@ -12,10 +12,9 @@ long long int Fibonacci(int nn, int t1, int t2) {
   }
 }
 
-int main () {
-
-  long long int t1;
-  long long int t2;
+int main() {
+  int64_t t1;
+  int64_t t2;
   int nn;
 
   std::cin >> t1;
